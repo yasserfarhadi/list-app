@@ -27,14 +27,12 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <SessionProvider session={session}>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
-    </SessionProvider>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-dark_bg`}
+      >
+        <SessionProvider session={session}>{children}</SessionProvider>
+      </body>
+    </html>
   );
 }

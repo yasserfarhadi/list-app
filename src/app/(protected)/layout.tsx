@@ -2,14 +2,17 @@ import MenuNav from '@/components/menu-nav';
 import SavedItem from '@/components/saved-item';
 import SavedFilters from '@/components/saved-filters';
 import { Bookmark } from 'lucide-react';
+import Header from '@/components/header';
+import { headers } from 'next/headers';
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log(headers().get('x-url'));
   return (
-    <div className="grid grid-cols-2 h-[100vh]">
+    <div className="grid grid-cols-[280px,1fr] h-[100vh] gap-2">
       <div className="flex flex-col gap-2 w-[280px] h-full">
         <MenuNav />
         <div className="bg-background space-y-4 pt-4 flex-grow">
@@ -47,7 +50,10 @@ export default async function RootLayout({
           </div>
         </div>
       </div>
-      <div>{children}</div>
+      <div className="bg-background">
+        <Header />
+        <div>{children}</div>
+      </div>
     </div>
   );
 }

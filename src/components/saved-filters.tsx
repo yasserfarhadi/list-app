@@ -8,7 +8,7 @@ const SavedFilters = () => {
   const searchParams = useSearchParams();
   const saved = searchParams.get('saved')?.trim();
   return (
-    <div className="px-3 space-x-2">
+    <div className="px-3 flex items-center gap-2">
       <FilterButton
         query="recent"
         text="All"

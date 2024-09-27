@@ -25,8 +25,14 @@ export default auth((req) => {
   if (!isLoggedIn) {
     return Response.redirect(new URL('/auth/login', nextUrl));
   }
-
-  return NextResponse.next();
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set('x-url', req.url);
+  requestHeaders.set('Cache-Control', 'no-store');
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 });
 
 // Optionally, don't invoke Middleware on some paths

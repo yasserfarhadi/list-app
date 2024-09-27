@@ -11,3 +11,48 @@ body {
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  background: black;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #3a3a3b;
+}
+.v-no-scrollbar {
+  padding-right: 5px;
+}
+.v-no-scrollbar:hover {
+  padding-right: 0;
+}
+.v-no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.v-no-scrollbar:hover::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.h-no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.h-no-scrollbar {
+  padding-bottom: 5px;
+}
+.h-no-scrollbar:hover {
+  padding-bottom: 0;
+}
+.h-no-scrollbar:hover::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}

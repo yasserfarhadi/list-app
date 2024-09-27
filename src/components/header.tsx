@@ -3,8 +3,7 @@
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import StatButton from './stat-button';
-import { Flame, Heart, Lightbulb, Palette, Zap } from 'lucide-react';
-import FilterButton from './filter-button';
+import { Heart, Zap } from 'lucide-react';
 import PageFilters from './page-filters';
 import SearchBox from './search-box';
 
@@ -12,7 +11,7 @@ const Header = () => {
   const pathname = usePathname();
   const title = pathname && (pathname === '/' ? 'Podcast' : pathname.slice(1));
   return (
-    <header className="bg-background text-foreground py-5 px-7 space-y-4">
+    <header className="text-foreground py-5 px-7 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="space-y-0.5">

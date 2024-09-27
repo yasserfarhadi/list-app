@@ -9,17 +9,9 @@ const SavedFilters = () => {
   const saved = searchParams.get('saved')?.trim();
   return (
     <div className="px-3 flex items-center gap-2">
-      <FilterButton
-        query="recent"
-        text="All"
-        isActive={saved === 'all' || !saved}
-      />
-      <FilterButton
-        query="recent"
-        text="Podcast"
-        isActive={saved === 'podcast'}
-      />
-      <FilterButton query="recent" text="Book" isActive={saved === 'book'} />
+      <FilterButton text="All" isActive={saved === 'all' || !saved} />
+      <FilterButton text="Podcast" isActive={saved === 'podcast'} />
+      <FilterButton text="Book" isActive={saved === 'book'} />
     </div>
   );
 };

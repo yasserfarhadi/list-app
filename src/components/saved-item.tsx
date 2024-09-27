@@ -19,12 +19,10 @@ const SavedItem = ({ image, title, presenter }: Props) => {
         className="rounded-sm"
       />
       <div className="flex-grow">
-        <h5 className="text-foreground break-all leading-4">
-          {title}sssssssssssssssssss
-        </h5>
-        <p className="text-foreground/25">{presenter}</p>
+        <h5 className="text-foreground break-all leading-4">{title}</h5>
+        <p className="text-foreground/25 text-sm">{presenter}</p>
       </div>
-      <ChevronRight className="text-foreground/60" />
+      <ChevronRight className="text-foreground/60 w-5 h-5" />
     </div>
   );
 };

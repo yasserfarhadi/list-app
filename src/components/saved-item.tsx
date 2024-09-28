@@ -1,16 +1,20 @@
-import { ChevronRight } from 'lucide-react';
-import Image from 'next/image';
-import React from 'react';
+import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import React from "react";
 
 interface Props {
   image: string;
   title: string;
   presenter: string;
+  onClick: () => void;
 }
 
-const SavedItem = ({ image, title, presenter }: Props) => {
+const SavedItem = ({ image, title, presenter, onClick }: Props) => {
   return (
-    <div className="py-2.5 px-3 flex items-center gap-2 hover:bg-foreground/10 duration-500 cursor-pointer">
+    <div
+      className="flex cursor-pointer items-center gap-2 px-3 py-2.5 duration-500 hover:bg-foreground/10"
+      onClick={onClick}
+    >
       <Image
         src={image}
         width={60}
@@ -19,10 +23,10 @@ const SavedItem = ({ image, title, presenter }: Props) => {
         className="rounded-sm"
       />
       <div className="flex-grow">
-        <h5 className="text-foreground break-all leading-4">{title}</h5>
-        <p className="text-foreground/25 text-sm">{presenter}</p>
+        <h5 className="break-all leading-4 text-foreground">{title}</h5>
+        <p className="text-sm text-foreground/25">{presenter}</p>
       </div>
-      <ChevronRight className="text-foreground/60 w-5 h-5" />
+      <ChevronRight className="h-5 w-5 text-foreground/60" />
     </div>
   );
 };

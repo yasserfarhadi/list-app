@@ -1,16 +1,19 @@
+"use client";
+
 import MenuNav from "@/components/menu-nav";
 import SavedItem from "@/components/saved-item";
 import SavedFilters from "@/components/saved-filters";
 import { Bookmark } from "lucide-react";
 import Header from "@/components/header";
-import { headers } from "next/headers";
+import PlayerDrawer from "@/components/drawer";
+import { usePlayer } from "@/context/player";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(headers().get("x-url"));
+  const player = usePlayer();
   return (
     <div className="grid max-h-[100vh] grid-cols-[280px,calc(100vw-288px)] gap-2 overflow-x-hidden">
       <div className="flex h-full w-[280px] flex-col gap-2">
@@ -26,34 +29,46 @@ export default async function RootLayout({
               image={"/images/bastards.png"}
               title="bastards"
               presenter="bastards"
+              onClick={() => player?.setItem("1")}
             />
             <SavedItem
               image={"/images/bastards.png"}
               title="bastards"
               presenter="bastards"
+              onClick={() => player?.setItem("1")}
             />
             <SavedItem
               image={"/images/bastards.png"}
               title="bastards"
               presenter="bastards"
+              onClick={() => player?.setItem("1")}
             />
             <SavedItem
               image={"/images/bastards.png"}
               title="bastards"
               presenter="bastards"
+              onClick={() => player?.setItem("1")}
             />
             <SavedItem
               image={"/images/bastards.png"}
               title="bastards"
               presenter="bastards"
+              onClick={() => player?.setItem("1")}
             />
           </div>
         </div>
       </div>
-      <div className="max-h-[100vh] overflow-y-auto bg-background">
+      <div
+        className="max-h-[100vh] overflow-y-auto bg-background duration-300"
+        style={{
+          marginRight:
+            player?.state.isOpen && !player.state.isMinimized ? "338px" : "0",
+        }}
+      >
         <Header />
-        <div className="">{children}</div>
+        <div>{children}</div>
       </div>
+      <PlayerDrawer />
     </div>
   );
 }

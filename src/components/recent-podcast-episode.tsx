@@ -9,6 +9,7 @@ interface Props {
   summary: string;
   episode: number;
   brandColor: string;
+  onClick: () => void;
 }
 
 const RecentPodcastEpisode = ({
@@ -17,6 +18,7 @@ const RecentPodcastEpisode = ({
   summary,
   brandColor,
   episode,
+  onClick,
 }: Props) => {
   return (
     <div
@@ -24,6 +26,7 @@ const RecentPodcastEpisode = ({
       style={{
         background: `linear-gradient(to right, ${brandColor} 0%, transparent 110%)`,
       }}
+      onClick={onClick}
     >
       <div
         className="absolute z-0 h-52 w-72 translate-x-[-67%] rounded-full p-3 duration-500 group-hover:scale-110"

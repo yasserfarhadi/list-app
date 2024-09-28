@@ -7,6 +7,8 @@ import { Bookmark } from "lucide-react";
 import Header from "@/components/header";
 import PlayerDrawer from "@/components/drawer";
 import { usePlayer } from "@/context/player";
+import PlayerWidget from "@/components/player-widget";
+import { motion } from "framer-motion";
 
 export default function RootLayout({
   children,
@@ -58,17 +60,20 @@ export default function RootLayout({
           </div>
         </div>
       </div>
-      <div
-        className="max-h-[100vh] overflow-y-auto bg-background duration-300"
-        style={{
+      <motion.div
+        className="max-h-[100vh] overflow-y-auto bg-background"
+        initial={{ marginRight: 0 }}
+        animate={{
           marginRight:
-            player?.state.isOpen && !player.state.isMinimized ? "338px" : "0",
+            player?.state.isOpen && !player.state.isMinimized ? 338 : 0,
         }}
+        transition={{ type: "spring", duration: 300, mass: 1 }}
       >
         <Header />
         <div>{children}</div>
-      </div>
+      </motion.div>
       <PlayerDrawer />
+      <PlayerWidget />
     </div>
   );
 }

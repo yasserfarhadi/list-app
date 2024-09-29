@@ -23,7 +23,9 @@ const SavedItem = ({ image, title, presenter, onClick }: Props) => {
         className="rounded-sm"
       />
       <div className="flex-grow">
-        <h5 className="break-all leading-4 text-foreground">{title}</h5>
+        <h5 className="break-words text-sm leading-4 text-foreground">
+          {title}
+        </h5>
         <p className="text-sm text-foreground/25">{presenter}</p>
       </div>
       <ChevronRight className="h-5 w-5 text-foreground/60" />

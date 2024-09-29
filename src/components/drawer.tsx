@@ -20,10 +20,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { Slider } from "@/components/ui/slider";
+import { Spinner } from "./spinner";
+import { cn } from "@/lib/utils";
 
 const PlayerDrawer = () => {
   const player = usePlayer();
-
+  const pending = player?.state.isLoading;
+  const data = player?.state.data;
   return (
     <Drawer
       direction="right"
@@ -43,9 +46,9 @@ const PlayerDrawer = () => {
             >
               <ChevronDown width={16} height={16} />
             </button>
-            <h4 className="line-clamp-1 flex-grow break-all font-normal">
-              Podcast title
-            </h4>
+            <div className="line-clamp-1 flex-grow break-all font-normal">
+              {data?.title}
+            </div>
             <button className="rounded-full bg-background p-2 duration-500 hover:bg-white/30">
               <Bookmark width={16} height={16} />
             </button>
@@ -61,26 +64,38 @@ const PlayerDrawer = () => {
           </DrawerTitle>
         </DrawerHeader>
         <div className="relative flex flex-grow flex-col">
-          <div
-            className="z-1 absolute inset-0"
-            style={{
-              backgroundImage: `url(/images/huberman.jpg)`,
-              backgroundPosition: "top center",
-              backgroundSize: " 250%",
-              backgroundRepeat: "no-repeat",
-              filter: "blur(15px)",
-            }}
-          />
+          {data?.imageUrl && (
+            <div
+              className="z-1 absolute inset-0"
+              style={{
+                backgroundImage: `url(${data.imageUrl})`,
+                backgroundPosition: "top center",
+                backgroundSize: " 250%",
+                backgroundRepeat: "no-repeat",
+                filter: "blur(15px)",
+              }}
+            />
+          )}
           <div className="absolute inset-0 z-0 bg-dark_bg/50" />
           <div className="z-10 h-[calc(100vh-64px)] space-y-10 overflow-y-auto px-4 pb-8">
-            <div className="mt-12">
-              <Image
-                src={"/images/huberman.jpg"}
-                width={120}
-                height={120}
-                alt="podcast"
-                className="mx-auto rounded-xl"
-              />
+            <div
+              className={cn(
+                "absolute inset-0 z-10 hidden justify-center bg-background/60 pt-20",
+                pending && "flex",
+              )}
+            >
+              <Spinner className="h-10 w-10" />
+            </div>
+            <div className="mt-12 flex h-[120px] justify-center">
+              {data?.imageUrl && (
+                <Image
+                  src={data?.imageUrl}
+                  width={120}
+                  height={120}
+                  alt="podcast"
+                  className="mx-auto h-[120px] w-[120px] rounded-xl"
+                />
+              )}
             </div>
             <div className="space-y-.5">
               <p className="text-xs text-white/60">Chapter 7</p>
@@ -112,149 +127,24 @@ const PlayerDrawer = () => {
               </button>
             </div>
             <div className="space-y-3">
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
+              {new Array(15).fill(null).map((_, i) => (
+                <div
+                  key={i}
+                  className="group flex items-center justify-between"
+                >
+                  <p className="text-sm duration-500 group-hover:text-white/60">
+                    Rejecting Social Norms For
+                  </p>
 
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
-              <div className="group flex items-center justify-between">
-                <p className="text-sm duration-500 group-hover:text-white/60">
-                  Rejecting Social Norms For
-                </p>
-
-                <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
-                  <Play
-                    width={10}
-                    height={10}
-                    className="duration-500 group-hover:text-white/60"
-                  />
-                </button>
-              </div>
+                  <button className="rounded-full border p-1.5 text-white duration-500 group-hover:text-white/60">
+                    <Play
+                      width={10}
+                      height={10}
+                      className="duration-500 group-hover:text-white/60"
+                    />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>

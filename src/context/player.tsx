@@ -1,5 +1,7 @@
 "use client";
 
+import { getPodcast } from "@/actions/podcast";
+import { Podcast } from "@prisma/client";
 import React from "react";
 
 interface State {
@@ -7,7 +9,7 @@ interface State {
   isMinimized: boolean;
   isLoading: boolean;
   id: string | null;
-  data: null;
+  data: Podcast | null;
 }
 
 type Action =
@@ -15,7 +17,7 @@ type Action =
   | { type: "CLOSE" }
   | { type: "MINIMIZE" }
   | { type: "MAXIMIZE" }
-  | { type: "SET_ITEM"; payload: null };
+  | { type: "SET_ITEM"; payload: Podcast };
 
 const initialState: State = {
   isOpen: false,
@@ -28,7 +30,7 @@ const initialState: State = {
 const context = React.createContext<{
   state: State;
   dispatch: React.Dispatch<Action>;
-  setItem: (id: string) => void;
+  setItem: (id: number) => void;
 } | null>(null);
 
 export const usePlayer = () => React.useContext(context);
@@ -41,7 +43,6 @@ function reducer(state: State, action: Action) {
         isOpen: true,
         isMinimized: false,
         isLoading: true,
-        data: null,
       };
     case "CLOSE":
       return { ...state, isOpen: false, isMinimized: false, activeItem: null };
@@ -52,10 +53,9 @@ function reducer(state: State, action: Action) {
     case "SET_ITEM":
       return {
         ...state,
-        data: null,
-        isOpen: true,
         isMinimized: false,
         isLoading: false,
+        data: action.payload,
       };
     default:
       return state;
@@ -65,14 +65,12 @@ function reducer(state: State, action: Action) {
 const PlayerProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  const setItem = React.useCallback(async (id: string) => {
-    //get item
+  const setItem = React.useCallback(async (id: number) => {
     dispatch({ type: "OPEN" });
-    console.log(id);
-    const data = await {};
-    await new Promise((r) => setTimeout(r, 2000));
-    console.log(data);
-    dispatch({ type: "SET_ITEM", payload: null });
+    const data = await getPodcast(id);
+    if (data && !("error" in data)) {
+      dispatch({ type: "SET_ITEM", payload: data });
+    }
   }, []);
 
   return (

@@ -1,14 +1,13 @@
 "use client";
 
 import MenuNav from "@/components/menu-nav";
-import SavedItem from "@/components/saved-item";
-import SavedFilters from "@/components/saved-filters";
 import { Bookmark } from "lucide-react";
 import Header from "@/components/header";
 import PlayerDrawer from "@/components/drawer";
 import { usePlayer } from "@/context/player";
 import PlayerWidget from "@/components/player-widget";
 import { motion } from "framer-motion";
+import SavedItemContaienr from "@/components/saved-item-container";
 
 export default function RootLayout({
   children,
@@ -25,39 +24,7 @@ export default function RootLayout({
             <Bookmark width={18} height={18} className="text-white/40" />
             <h5 className="text-xl font-bold tracking-wide">Saved Items</h5>
           </div>
-          <SavedFilters />
-          <div className="v-no-scrollbar h-[calc(100vh-275px-116px)] overflow-auto overflow-x-hidden">
-            <SavedItem
-              image={"/images/bastards.png"}
-              title="bastards"
-              presenter="bastards"
-              onClick={() => player?.setItem("1")}
-            />
-            <SavedItem
-              image={"/images/bastards.png"}
-              title="bastards"
-              presenter="bastards"
-              onClick={() => player?.setItem("1")}
-            />
-            <SavedItem
-              image={"/images/bastards.png"}
-              title="bastards"
-              presenter="bastards"
-              onClick={() => player?.setItem("1")}
-            />
-            <SavedItem
-              image={"/images/bastards.png"}
-              title="bastards"
-              presenter="bastards"
-              onClick={() => player?.setItem("1")}
-            />
-            <SavedItem
-              image={"/images/bastards.png"}
-              title="bastards"
-              presenter="bastards"
-              onClick={() => player?.setItem("1")}
-            />
-          </div>
+          <SavedItemContaienr />
         </div>
       </div>
       <motion.div

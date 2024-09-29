@@ -1,3 +1,6 @@
+"use client";
+
+import { usePlayer } from "@/context/player";
 import { lightenHexColor } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -9,7 +12,7 @@ interface Props {
   summary: string;
   episode: number;
   brandColor: string;
-  onClick: () => void;
+  id: number;
 }
 
 const RecentPodcastEpisode = ({
@@ -18,15 +21,16 @@ const RecentPodcastEpisode = ({
   summary,
   brandColor,
   episode,
-  onClick,
+  id,
 }: Props) => {
+  const player = usePlayer();
   return (
     <div
       className="group relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-md p-4 duration-500"
       style={{
         background: `linear-gradient(to right, ${brandColor} 0%, transparent 110%)`,
       }}
-      onClick={onClick}
+      onClick={() => player?.setItem(id)}
     >
       <div
         className="absolute z-0 h-52 w-72 translate-x-[-67%] rounded-full p-3 duration-500 group-hover:scale-110"
@@ -57,7 +61,7 @@ const RecentPodcastEpisode = ({
           {summary}
         </p>
       </div>
-      <ChevronRight className="z-10 ml-5 h-12 w-12 text-foreground/60" />
+      <ChevronRight className="z-10 ml-5 h-5 w-5 shrink-0 text-foreground/60" />
     </div>
   );
 };

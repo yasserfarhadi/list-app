@@ -1,3 +1,6 @@
+"use client";
+
+import { usePlayer } from "@/context/player";
 import Image from "next/image";
 import React from "react";
 
@@ -6,14 +9,15 @@ interface Props {
   title: string;
   host: string;
   hasNewPost?: boolean;
-  onClick: () => void;
+  id: number;
 }
 
-const PodcastItem = ({ image, title, hasNewPost, host, onClick }: Props) => {
+const PodcastItem = ({ image, title, hasNewPost, host, id }: Props) => {
+  const player = usePlayer();
   return (
     <div
       className="group relative w-[120px] shrink-0 cursor-pointer"
-      onClick={onClick}
+      onClick={() => player?.setItem(id)}
     >
       <div className="relative">
         <Image

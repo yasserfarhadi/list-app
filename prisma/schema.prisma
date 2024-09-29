@@ -21,4 +21,65 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Recent    Recent[]
+}
+
+model Book {
+  id       Int       @id @default(autoincrement())
+  title    String
+  author   String
+  imageUrl String    @map("image_url")
+  tags     BookTag[]
+  Recent   Recent[]
+}
+
+model Podcast {
+  id          Int          @id @default(autoincrement())
+  title       String
+  host        String
+  imageUrl    String       @map("image_url")
+  tags        PodcastTag[]
+  brand_color String
+  Recent      Recent[]
+}
+
+model Tag {
+  id       Int          @id @default(autoincrement())
+  name     String       @unique
+  books    BookTag[]
+  podcasts PodcastTag[]
+}
+
+model BookTag {
+  bookId Int
+  tagId  Int
+  book   Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  tag    Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([bookId, tagId])
+}
+
+model PodcastTag {
+  podcastId Int
+  tagId     Int
+  podcast   Podcast @relation(fields: [podcastId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([podcastId, tagId])
+}
+
+model Recent {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bookId    Int?
+  podcastId Int?
+  viewedAt  DateTime @default(now())
+
+  book    Book?    @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  podcast Podcast? @relation(fields: [podcastId], references: [id], onDelete: Cascade)
+
+  @@index([userId, bookId])
+  @@index([userId, podcastId])
 }
